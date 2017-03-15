@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>react define a component</title>
+		<script src="../build/react.js"></script>
+		<script src="../build/react-dom.js"></script>
+		<script src="../build/browser.min.js"></script>	
+</head>
+<body>
+	<div id="example"></div>
+	<script type="text/babel">
+	// React.createClass() 创建一个组件类，它实现一个render方法，返回一个实例，不需要用new，只需要当做一个自定义的标签就行
+	// 组件有属性，可以使用this.props.[attribute]获取，下面的例子中this.props.name 就是'John'
+	// 需要注意组件名的首字母必须大写，在一个组件中只能有一个顶级子节点
+		var HelloMessage = React.createClass({
+			render: function (){
+				return <h1>Hello {this.props.name}</h1>
+			}
+		});
+		ReactDOM.render(
+			<HelloMessage name='John' />,
+			document.getElementById('example')
+		); 
+	</script>
+</body>
+</html>

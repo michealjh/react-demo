@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>react Finding a DOM node</title>
+	<script src="../build/react.js"></script>
+	<script src="../build/react-dom.js"></script>
+	<script src="../build/browser.min.js"></script>	
+</head>
+<body>
+	<div id="example"></div>
+	<script type="text/babel">
+	// 虚拟DOM(virtual DOM)：存在于内存之中的一种数据结构
+	// React组件都是虚拟DOM，只有当插入文档以后，才会变成真实DOM
+	// React的设计，所有DOM变动，都先在虚拟DOM上发生，然后再将实际发生变动的部分，反映在真实DOM上，这种算法叫做DOM diff，它可以极大提高网页性能表现
+
+	// 下面例子中 组件MyComponent的子节点有一个文档输入框，用于获取用户输入。这时必须获取真实DOM节点，虚拟DOM拿不到用户输入。为了做到这点，文本框必须有一个 ref属性，然后 this.ref.[refName] 就会返回这个真实的DOM节点
+
+	//注意：this.ref[refName] 属性获取的是真实的DOM，所以必须等到虚拟DOM插入文档以后，才能使用这个属性，否则报错。下面代码中，通过为组件指定 Click事件的回调函数，确保了只有等到真实DOM发生Click事件之后，才会读取 this.ref[refName]属性
+
+	  var MyComponent = React.createClass({
+		handleClick: function () {
+		  this.refs.myTextInput.focus();
+		},
+		render: function () {
+		  return (
+			<div>
+			  <input type="text" ref="myTextInput" />
+			  <input type="button" value="Focus the text input" onClick={this.handleClick} />
+			</div>
+		  );
+		}
+	  });
+	  ReactDOM.render(
+		<MyComponent />,
+		document.getElementById("example")
+	  );
+	</script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>react this.state</title>
+	<script src="../build/react.js"></script>
+	<script src="../build/react-dom.js"></script>
+	<script src="../build/browser.min.js"></script>
+</head>
+<body>
+	<div id="example"></div>
+	<script type="text/babel">
+	// getInitialState ：定义初始状态，是一个对象，可以通过this.state属性读取
+	// this.setState方法修改状态值，每次修改自动调用this.render，再次渲染组件
+	// this.props和this.state都用于描述组件的特性，区分方法this.props表示一旦定义，就不再改变的特性，而this.state是会随着用户互动而改变的特性。
+
+	// 下面的代码 一个LikeButton组件，getInitialState定义this.state.liked=false，handleClick方法调用时，通过this.setState改变this.state.liked的值(取反)，渲染方法里text通过判断this.state.liked的bollean，赋值不同的字符串，最后在ReactDOM.render
+
+	  var LikeButton = React.createClass({
+		getInitialState: function () {
+		  return {liked: false};
+		},
+		handleClick: function () {
+		  this.setState({liked: !this.state.liked});
+		},
+		render: function () {
+		  var text = this.state.liked ? 'like' : 'haven\'t liked';
+		  return (
+			<p onClick={this.handleClick}>
+			  You {text} this. Click to toggle.
+			</p>
+		  );
+		}
+	  });
+	  ReactDOM.render(
+		<LikeButton />,
+		document.getElementById('example')
+	  );
+	</script>
+</body>
+</html>
